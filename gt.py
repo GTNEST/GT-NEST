@@ -2,41 +2,45 @@ import tkinter as tk
 from tkinter import messagebox
 import random
 
-# Simulated temperature (random for now)
+
 def get_temperature():
     return round(random.uniform(18.0, 28.0), 1)
 
-# Switch to dashboard screen
 def show_dashboard():
     login_frame.pack_forget()
     dashboard_frame.pack(fill="both", expand=True)
     update_temp()
 
-# Switch back to login screen
+
 def logout():
     dashboard_frame.pack_forget()
     login_frame.pack(fill="both", expand=True)
 
-# Handle login button click
+
 def handle_login():
     username = username_entry.get()
     password = password_entry.get()
-    # You could validate here if needed
+
     if username and password:
         show_dashboard()
     else:
         messagebox.showwarning("Login Failed", "Please enter both username and password.")
 
-# Toggle light
+# def handle_signup():
+
+
+
+# this section is for the function on the actual dashboard
+
 def toggle_light():
     if light_button.config('text')[-1] == 'Turn On Light':
-        light_button.config(text='Turn Off Light', bg='yellow')
+        light_button.config(text='Turn off Light', bg='yellow')
         light_status.config(text='Light is ON', fg='green')
     else:
         light_button.config(text='Turn On Light', bg='gray')
         light_status.config(text='Light is OFF', fg='red')
 
-# Toggle alarm
+
 def toggle_alarm():
     if alarm_button.config('text')[-1] == 'Activate Alarm':
         alarm_button.config(text='Deactivate Alarm', bg='red')
@@ -45,39 +49,42 @@ def toggle_alarm():
         alarm_button.config(text='Activate Alarm', bg='gray')
         alarm_status.config(text='Alarm is OFF', fg='green')
 
-# Update temperature every 3 seconds
+
 def update_temp():
     temp = get_temperature()
     temp_label.config(text=f"Temperature: {temp}°C")
     if dashboard_frame.winfo_ismapped():
         root.after(3000, update_temp)
 
-# ---------------- GUI Setup ----------------
 root = tk.Tk()
-root.title("🏠 Smart Home App")
-root.geometry("350x400")
+root.title("GT AUTOMATION/MANAGEMENT SYSTEM")
+root.geometry("1260x750")
 root.resizable(False, False)
 
-# ----- LOGIN SCREEN -----
-login_frame = tk.Frame(root)
 
-login_title = tk.Label(login_frame, text="Login", font=("Arial", 16, "bold"))
+login_frame = tk.Frame(root)
+# reminder to add background color root,background='group color'
+
+login_title = tk.Label(login_frame, text="GT NEST LOGIN", font=("Arial", 16, "bold"))
 login_title.pack(pady=20)
 
-tk.Label(login_frame, text="Username").pack()
-username_entry = tk.Entry(login_frame)
+tk.Label(login_frame, text="Enter Username").pack()
+username_entry = tk.Entry(login_frame,width=35)
 username_entry.pack(pady=5)
 
-tk.Label(login_frame, text="Password").pack()
-password_entry = tk.Entry(login_frame, show="*")
+tk.Label(login_frame, text="Enter Password").pack()
+password_entry = tk.Entry(login_frame, show="*",width=35)
 password_entry.pack(pady=5)
 
-login_button = tk.Button(login_frame, text="Login", width=15, command=handle_login)
+login_button = tk.Button(login_frame, text="Login", width=34, command=handle_login)
 login_button.pack(pady=20)
+
+# signup_button = tk.Button(login_frame, text="SignUp", width=34, command=handle_login)
+# login_button.pack(pady=20)
 
 login_frame.pack(fill="both", expand=True)
 
-# ----- DASHBOARD SCREEN -----
+# /this is after the login screen when the user logs in correctly it will display the dashboard
 dashboard_frame = tk.Frame(root)
 
 title = tk.Label(dashboard_frame, text="Smart Home Dashboard", font=("Arial", 16, "bold"))
@@ -99,5 +106,5 @@ temp_label.pack(pady=20)
 back_button = tk.Button(dashboard_frame, text="← Logout", command=logout)
 back_button.pack(pady=10)
 
-# Start GUI loop
+
 root.mainloop()
