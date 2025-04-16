@@ -24,7 +24,7 @@ def handle_login():
     if username and password:
         show_dashboard()
     else:
-        messagebox.showwarning("Login Failed", "Please enter both username and password.")
+        messagebox.showwarning("Login Failed", "Please both username and password.")
 
 # def handle_signup():
 
